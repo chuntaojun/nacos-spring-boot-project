@@ -33,12 +33,12 @@ import org.springframework.core.env.PropertySource;
  * @author <a href="mailto:liaochunyhm@live.com">liaochuntao</a>
  * @since 0.2.3
  */
-public class AttributeExtractTask implements Callable<Map<String, String>> {
+public class AttributeExtractUtils implements Callable<Map<String, String>> {
 
 	private final String prefix;
 	private final ConfigurableEnvironment environment;
 
-	public AttributeExtractTask(String prefix, ConfigurableEnvironment environment) {
+	public AttributeExtractUtils(String prefix, ConfigurableEnvironment environment) {
 		this.prefix = prefix;
 		this.environment = environment;
 	}

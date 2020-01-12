@@ -19,9 +19,10 @@ package com.alibaba.boot.nacos.config.autoconfigure;
 import java.util.Properties;
 import java.util.function.Function;
 
+import com.alibaba.boot.nacos.config.exception.NacosBootConfigException;
 import com.alibaba.boot.nacos.config.properties.NacosConfigProperties;
 import com.alibaba.boot.nacos.config.util.NacosConfigPropertiesUtils;
-import com.alibaba.boot.nacos.config.util.NacosConfigUtils;
+import com.alibaba.boot.nacos.config.util.NacosConfigLoader;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.spring.factory.CacheableEventPublishingNacosServiceFactory;
@@ -31,6 +32,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
+
+import static com.alibaba.nacos.spring.util.NacosBeanUtils.GLOBAL_NACOS_PROPERTIES_BEAN_NAME;
 
 /**
  * @author <a href="mailto:liaochunyhm@live.com">liaochuntao</a>
@@ -77,20 +80,28 @@ public class NacosConfigApplicationContextInitializer
 							e);
 				}
 			};
-			NacosConfigUtils configUtils = new NacosConfigUtils(nacosConfigProperties,
+			NacosConfigLoader configLoader = new NacosConfigLoader(nacosConfigProperties,
 					environment, builder);
 
 			// If it opens the log level loading directly will cache
 			// DeferNacosPropertySource release
 
+			Properties getGlobalProperties;
+
 			if (processor.enable()) {
-				configUtils
+				configLoader
 						.addListenerIfAutoRefreshed(processor.getDeferPropertySources());
 			}
 			else {
-				configUtils.loadConfig();
-				configUtils.addListenerIfAutoRefreshed();
+				configLoader.loadConfig();
+				configLoader.addListenerIfAutoRefreshed();
 			}
+
+			getGlobalProperties = configLoader.getGlobalProperties();
+
+			// Register the global Nacos configuration
+
+			context.getBeanFactory().registerSingleton(GLOBAL_NACOS_PROPERTIES_BEAN_NAME, getGlobalProperties);
 		}
 	}
 

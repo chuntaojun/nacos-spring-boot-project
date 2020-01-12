@@ -254,7 +254,7 @@ public class NacosConfigProperties {
 
 	public static class Config {
 
-		private String serverAddr = "127.0.0.1:8848";
+		private String serverAddr;
 
 		private String endpoint;
 
