@@ -170,7 +170,12 @@ public class NacosConfigLoader {
 			propertySources[i] = nacosPropertySource;
 			DeferNacosPropertySource defer = new DeferNacosPropertySource(
 					nacosPropertySource, configProperties, environment);
-			nacosPropertySources.add(defer);
+
+			// Only those with a refresh listener are added to the delay queue
+
+			if (isAutoRefresh) {
+				nacosPropertySources.add(defer);
+			}
 		}
 		return propertySources;
 	}
