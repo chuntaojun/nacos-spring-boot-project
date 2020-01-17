@@ -404,4 +404,18 @@ public class NacosConfigProperties {
 			this.enableRemoteSyncConfig = enableRemoteSyncConfig;
 		}
 	}
+
+	@Override public String toString() {
+		return "NacosConfigProperties{" + "serverAddr='" + serverAddr + '\''
+				+ ", contextPath='" + contextPath + '\'' + ", encode='" + encode + '\''
+				+ ", endpoint='" + endpoint + '\'' + ", namespace='" + namespace + '\''
+				+ ", accessKey='" + accessKey + '\'' + ", secretKey='" + secretKey + '\''
+				+ ", ramRoleName='" + ramRoleName + '\'' + ", autoRefresh=" + autoRefresh
+				+ ", dataId='" + dataId + '\'' + ", dataIds='" + dataIds + '\''
+				+ ", group='" + group + '\'' + ", type=" + type + ", maxRetry='"
+				+ maxRetry + '\'' + ", configLongPollTimeout='" + configLongPollTimeout
+				+ '\'' + ", configRetryTime='" + configRetryTime + '\''
+				+ ", enableRemoteSyncConfig=" + enableRemoteSyncConfig + ", extConfig="
+				+ extConfig + ", bootstrap=" + bootstrap + '}';
+	}
 }

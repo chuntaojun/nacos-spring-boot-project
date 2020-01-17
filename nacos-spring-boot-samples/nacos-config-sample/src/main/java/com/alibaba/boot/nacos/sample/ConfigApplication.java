@@ -26,9 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -67,18 +65,6 @@ public class ConfigApplication {
 	@Bean
 	public Foo foo() {
 		return new Foo();
-	}
-
-	@Configuration
-	@ConditionalOnProperty(prefix = "people", name = "enable", havingValue = "true")
-	protected static class People {
-
-		@Bean
-		public Object object() {
-			System.err.println("[liaochuntao] : " + this.getClass().getCanonicalName());
-			return new Object();
-		}
-
 	}
 
 	public static class FirstCommandLineRunner implements CommandLineRunner {

@@ -35,7 +35,6 @@ import static com.alibaba.nacos.spring.util.NacosBeanUtils.CONFIG_GLOBAL_NACOS_P
  * @author <a href="mailto:fangjian0423@gmail.com">Jim</a>
  */
 @ConditionalOnProperty(name = NacosConfigConstants.ENABLED, matchIfMissing = true)
-@ConditionalOnMissingBean(name = CONFIG_GLOBAL_NACOS_PROPERTIES_BEAN_NAME)
 @EnableConfigurationProperties(value = NacosConfigProperties.class)
 @ConditionalOnClass(name = "org.springframework.boot.context.properties.bind.Binder")
 @Import(value = { NacosConfigBootBeanDefinitionRegistrar.class })

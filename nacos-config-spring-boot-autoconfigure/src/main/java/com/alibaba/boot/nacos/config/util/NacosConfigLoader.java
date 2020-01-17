@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.alibaba.boot.nacos.config.common.StringConstant;
 import com.alibaba.boot.nacos.config.properties.NacosConfigProperties;
@@ -121,13 +122,13 @@ public class NacosConfigLoader {
 		final String dataIds = Optional.ofNullable(config.getDataId()).orElse("")
 				+ StringConstant.COMMA
 				+ Optional.ofNullable(config.getDataIds()).orElse("");
-		return reqConfig(subConfigProperties, dataIds, config.getDataId(),
+		return reqConfig(subConfigProperties, dataIds, config.getGroup(),
 				config.getType(), config.isAutoRefresh());
 	}
 
 	private List<NacosPropertySource> reqConfig(Properties configProperties,
 			String dataIds, String groupId, ConfigType type, boolean isAutoRefresh) {
-		ArrayList<String> findDataIds = new ArrayList<>();
+		List<String> findDataIds = new ArrayList<>();
 		if (StringUtils.isAllBlank(dataIds)
 				|| dataIds.trim().equals(StringConstant.COMMA)) {
 			return Collections.emptyList();
@@ -139,6 +140,8 @@ public class NacosConfigLoader {
 		else {
 			findDataIds.add(dataIds);
 		}
+		findDataIds = findDataIds.stream().filter(StringUtils::isNoneBlank).collect(
+				Collectors.toList());
 		final String groupName = environment.resolvePlaceholders(groupId);
 		return new ArrayList<>(Arrays.asList(reqNacosConfig(configProperties,
 				findDataIds.toArray(new String[0]), groupName, type, isAutoRefresh)));
