@@ -16,22 +16,22 @@
  */
 package com.alibaba.boot.nacos.config.autoconfigure;
 
-import java.util.Properties;
-import java.util.function.Function;
-
 import com.alibaba.boot.nacos.config.exception.NacosBootConfigException;
 import com.alibaba.boot.nacos.config.properties.NacosConfigProperties;
-import com.alibaba.boot.nacos.config.util.NacosConfigPropertiesUtils;
 import com.alibaba.boot.nacos.config.util.NacosConfigLoader;
+import com.alibaba.boot.nacos.config.util.NacosConfigPropertiesUtils;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.spring.factory.CacheableEventPublishingNacosServiceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
+
+import java.util.Properties;
+import java.util.function.Function;
 
 import static com.alibaba.nacos.spring.util.NacosBeanUtils.CONFIG_GLOBAL_NACOS_PROPERTIES_BEAN_NAME;
 
@@ -101,7 +101,15 @@ public class NacosConfigApplicationContextInitializer
 
 			// Register the global Nacos configuration
 
-			context.getBeanFactory().registerSingleton(CONFIG_GLOBAL_NACOS_PROPERTIES_BEAN_NAME, getGlobalProperties);
+			ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
+
+			// In order to avoid repeatedly creating the same bean and causing an error,
+			// manually determine whether the bean exists
+
+			if (beanFactory.containsSingleton(CONFIG_GLOBAL_NACOS_PROPERTIES_BEAN_NAME)) {
+				context.getBeanFactory().registerSingleton(
+						CONFIG_GLOBAL_NACOS_PROPERTIES_BEAN_NAME, getGlobalProperties);
+			}
 		}
 	}
 

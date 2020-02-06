@@ -16,16 +16,10 @@
  */
 package com.alibaba.boot.nacos.config.autoconfigure;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Properties;
-import java.util.function.Function;
-
 import com.alibaba.boot.nacos.config.exception.NacosBootConfigException;
 import com.alibaba.boot.nacos.config.properties.NacosConfigProperties;
-import com.alibaba.boot.nacos.config.util.NacosConfigPropertiesUtils;
 import com.alibaba.boot.nacos.config.util.NacosConfigLoader;
+import com.alibaba.boot.nacos.config.util.NacosConfigPropertiesUtils;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.exception.NacosException;
@@ -33,12 +27,17 @@ import com.alibaba.nacos.spring.factory.CacheableEventPublishingNacosServiceFact
 import com.alibaba.nacos.spring.util.NacosUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Properties;
+import java.util.function.Function;
 
 /**
  * In the Context to create premise before loading the log configuration information
@@ -112,7 +111,7 @@ public class NacosConfigEnvironmentProcessor
 
 	@Override
 	public int getOrder() {
-		return Ordered.LOWEST_PRECEDENCE;
+		return Ordered.LOWEST_PRECEDENCE - 10;
 	}
 
 	void publishDeferService(ApplicationContext context) {
