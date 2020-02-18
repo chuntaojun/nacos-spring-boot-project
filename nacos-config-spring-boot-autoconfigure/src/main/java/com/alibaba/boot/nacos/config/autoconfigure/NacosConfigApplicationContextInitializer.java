@@ -107,6 +107,10 @@ public class NacosConfigApplicationContextInitializer
 			// manually determine whether the bean exists
 
 			if (beanFactory.containsSingleton(CONFIG_GLOBAL_NACOS_PROPERTIES_BEAN_NAME)) {
+
+				// Inject globalNacosProperties in advance, so that the annotation does
+				// not need to set the configuration parameter information of the relevant nacos
+
 				context.getBeanFactory().registerSingleton(
 						CONFIG_GLOBAL_NACOS_PROPERTIES_BEAN_NAME, getGlobalProperties);
 			}

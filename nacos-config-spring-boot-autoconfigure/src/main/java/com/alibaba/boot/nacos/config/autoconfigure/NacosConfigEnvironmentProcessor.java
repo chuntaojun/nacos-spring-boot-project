@@ -109,6 +109,8 @@ public class NacosConfigEnvironmentProcessor
 		return deferPropertySources;
 	}
 
+	// In order to modify it again in the future, do not set the priority to the lowest
+
 	@Override
 	public int getOrder() {
 		return Ordered.LOWEST_PRECEDENCE - 10;
