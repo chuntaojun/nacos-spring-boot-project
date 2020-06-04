@@ -40,7 +40,7 @@ public class NacosConfigProperties {
 
 	private String contextPath;
 
-	private String encode;
+	private String encode = Constants.ENCODE;
 
 	private String endpoint;
 
@@ -261,28 +261,19 @@ public class NacosConfigProperties {
 
 	@Override
 	public String toString() {
-		final StringBuffer sb = new StringBuffer("NacosConfigProperties{");
-		sb.append("serverAddr='").append(serverAddr).append('\'');
-		sb.append(", contextPath='").append(contextPath).append('\'');
-		sb.append(", encode='").append(encode).append('\'');
-		sb.append(", endpoint='").append(endpoint).append('\'');
-		sb.append(", namespace='").append(namespace).append('\'');
-		sb.append(", accessKey='").append(accessKey).append('\'');
-		sb.append(", secretKey='").append(secretKey).append('\'');
-		sb.append(", ramRoleName='").append(ramRoleName).append('\'');
-		sb.append(", autoRefresh=").append(autoRefresh);
-		sb.append(", dataId='").append(dataId).append('\'');
-		sb.append(", dataIds='").append(dataIds).append('\'');
-		sb.append(", group='").append(group).append('\'');
-		sb.append(", type=").append(type);
-		sb.append(", maxRetry='").append(maxRetry).append('\'');
-		sb.append(", configLongPollTimeout='").append(configLongPollTimeout).append('\'');
-		sb.append(", configRetryTime='").append(configRetryTime).append('\'');
-		sb.append(", enableRemoteSyncConfig=").append(enableRemoteSyncConfig);
-		sb.append(", extConfig=").append(extConfig);
-		sb.append(", bootstrap=").append(bootstrap);
-		sb.append('}');
-		return sb.toString();
+		return "NacosConfigProperties{" + "serverAddr='" + serverAddr + '\''
+				+ ", contextPath='" + contextPath + '\'' + ", encode='" + encode + '\''
+				+ ", endpoint='" + endpoint + '\'' + ", namespace='" + namespace + '\''
+				+ ", accessKey='" + accessKey + '\'' + ", secretKey='" + secretKey + '\''
+				+ ", ramRoleName='" + ramRoleName + '\'' + ", autoRefresh=" + autoRefresh
+				+ ", dataId='" + dataId + '\'' + ", dataIds='" + dataIds + '\''
+				+ ", group='" + group + '\'' + ", type=" + type + ", maxRetry='"
+				+ maxRetry + '\'' + ", configLongPollTimeout='" + configLongPollTimeout
+				+ '\'' + ", configRetryTime='" + configRetryTime + '\''
+				+ ", enableRemoteSyncConfig=" + enableRemoteSyncConfig + ", username='"
+				+ username + '\'' + ", password='" + password + '\'' + ", remoteFirst="
+				+ remoteFirst + ", extConfig=" + extConfig + ", bootstrap=" + bootstrap
+				+ '}';
 	}
 
 	public static class Bootstrap {
@@ -323,6 +314,8 @@ public class NacosConfigProperties {
 
 		private String endpoint;
 
+		private String encode = Constants.ENCODE;
+
 		private String namespace;
 
 		private String accessKey;
@@ -352,6 +345,14 @@ public class NacosConfigProperties {
 		private String username;
 
 		private String password;
+
+		public String getEncode() {
+			return encode;
+		}
+
+		public void setEncode(String encode) {
+			this.encode = encode;
+		}
 
 		public String getUsername() {
 			return username;
@@ -491,25 +492,18 @@ public class NacosConfigProperties {
 
 		@Override
 		public String toString() {
-			final StringBuffer sb = new StringBuffer("Config{");
-			sb.append("serverAddr='").append(serverAddr).append('\'');
-			sb.append(", endpoint='").append(endpoint).append('\'');
-			sb.append(", namespace='").append(namespace).append('\'');
-			sb.append(", accessKey='").append(accessKey).append('\'');
-			sb.append(", secretKey='").append(secretKey).append('\'');
-			sb.append(", ramRoleName='").append(ramRoleName).append('\'');
-			sb.append(", dataId='").append(dataId).append('\'');
-			sb.append(", dataIds='").append(dataIds).append('\'');
-			sb.append(", group='").append(group).append('\'');
-			sb.append(", type=").append(type);
-			sb.append(", maxRetry='").append(maxRetry).append('\'');
-			sb.append(", configLongPollTimeout='").append(configLongPollTimeout)
-					.append('\'');
-			sb.append(", configRetryTime='").append(configRetryTime).append('\'');
-			sb.append(", autoRefresh=").append(autoRefresh);
-			sb.append(", enableRemoteSyncConfig=").append(enableRemoteSyncConfig);
-			sb.append('}');
-			return sb.toString();
+			return "Config{" + "serverAddr='" + serverAddr + '\'' + ", endpoint='"
+					+ endpoint + '\'' + ", encode='" + encode + '\'' + ", namespace='"
+					+ namespace + '\'' + ", accessKey='" + accessKey + '\''
+					+ ", secretKey='" + secretKey + '\'' + ", ramRoleName='" + ramRoleName
+					+ '\'' + ", dataId='" + dataId + '\'' + ", dataIds='" + dataIds + '\''
+					+ ", group='" + group + '\'' + ", type=" + type + ", maxRetry='"
+					+ maxRetry + '\'' + ", configLongPollTimeout='"
+					+ configLongPollTimeout + '\'' + ", configRetryTime='"
+					+ configRetryTime + '\'' + ", autoRefresh=" + autoRefresh
+					+ ", enableRemoteSyncConfig=" + enableRemoteSyncConfig
+					+ ", username='" + username + '\'' + ", password='" + password + '\''
+					+ '}';
 		}
 	}
 }
