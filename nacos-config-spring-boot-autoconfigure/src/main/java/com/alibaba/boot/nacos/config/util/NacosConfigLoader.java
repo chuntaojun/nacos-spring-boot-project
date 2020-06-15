@@ -113,7 +113,7 @@ public class NacosConfigLoader {
 			ConfigType type) {
 		List<String> dataIds = new ArrayList<>();
 		// Loads all data-id information into the list in the list
-		if (StringUtils.isEmpty(nacosConfigProperties.getDataIds())) {
+		if (StringUtils.isEmpty(nacosConfigProperties.getDataId())) {
 			final String ids = environment
 					.resolvePlaceholders(nacosConfigProperties.getDataIds());
 			dataIds.addAll(Arrays.asList(ids.split(",")));
@@ -134,7 +134,7 @@ public class NacosConfigLoader {
 		Properties subConfigProperties = buildSubNacosProperties(globalProperties,
 				config);
 		ArrayList<String> dataIds = new ArrayList<>();
-		if (StringUtils.isEmpty(config.getDataIds())) {
+		if (StringUtils.isEmpty(config.getDataId())) {
 			final String ids = environment.resolvePlaceholders(config.getDataIds());
 			dataIds.addAll(Arrays.asList(ids.split(",")));
 		}

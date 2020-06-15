@@ -16,6 +16,7 @@
  */
 package com.alibaba.boot.nacos.sample;
 
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -45,13 +46,15 @@ public class PrintLogger {
 	@Autowired
 	private LoggingSystem loggingSystem;
 
-	@NacosConfigListener(dataId = "${nacos.example.listener.data-id}", timeout = 5000)
+	@NacosConfigListener(dataId = "nacos.log", timeout = 5000)
 	public void onChange(String newLog) throws Exception {
-		Properties properties = new DefaultPropertiesConfigParse().parse(newLog);
+		Map<String, Object> properties = new DefaultPropertiesConfigParse().parse(newLog);
+		System.out.println(newLog);
+		System.out.println(properties);
 		for (Object t : properties.keySet()) {
 			String key = String.valueOf(t);
 			if (key.startsWith(LOGGER_TAG)) {
-				String strLevel = properties.getProperty(key, "info");
+				String strLevel = String.valueOf(properties.getOrDefault(key, "info"));
 				LogLevel level = LogLevel.valueOf(strLevel.toUpperCase());
 				loggingSystem.setLogLevel(key.replace(LOGGER_TAG, ""), level);
 				logger.info("{}:{}", key, strLevel);
