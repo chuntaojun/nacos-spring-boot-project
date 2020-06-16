@@ -44,7 +44,6 @@ import static org.springframework.core.env.StandardEnvironment.SYSTEM_PROPERTIES
  * @author <a href="mailto:fangjian0423@gmail.com">Jim</a>
  */
 @SpringBootApplication
-@EnableNacos(globalProperties = @NacosProperties(username = "nacos", password = "nacos"))
 @NacosPropertySources(value = {
 		@NacosPropertySource(dataId = "people", groupId = "DEVELOP", autoRefreshed = true),
 		@NacosPropertySource(name = "custom", dataId = ConfigApplication.DATA_ID, groupId = "ALIBABA", first = true, before = SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME, after = SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME) })
